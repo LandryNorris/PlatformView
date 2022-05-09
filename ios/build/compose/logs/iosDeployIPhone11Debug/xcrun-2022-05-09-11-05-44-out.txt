@@ -1,7 +1,0 @@
-TODO: set title to SkiaWindow
-ComposeWindow.setContent
-Created Bitmap
-Created UIImage
-Found array with size 160000
-Rendered Image to Bitmap
-Drew bitmap to canvas
