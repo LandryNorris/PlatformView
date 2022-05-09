@@ -1,0 +1,67 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "8ea58d838379bde81e96fa178fbeb56798be812cd9e563e55cbd4e50f8f64afc"
+    }
+  ],
+  "containerPath" : "/Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "x86_64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : true,
+      "platform" : "iphonesimulator",
+      "sdk" : "iphonesimulator15.2",
+      "sdkVariant" : "iphonesimulator",
+      "supportedArchitectures" : [
+        "i386",
+        "x86_64"
+      ],
+      "targetArchitecture" : "x86_64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj/build/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj/build/Build/Products",
+      "derivedDataPath" : "/Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj/build",
+      "indexDataStoreFolderPath" : "/Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj/build/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj/build/Index/PrecompiledHeaders",
+      "pchPath" : "/Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj/build/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+          "ARCHS" : "arm64",
+          "SDKROOT" : "iphonesimulator15.2"
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "BUILD_ACTIVE_RESOURCES_ONLY" : "YES",
+          "ENABLE_PREVIEWS" : "NO",
+          "TARGET_DEVICE_IDENTIFIER" : "dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder",
+          "TARGET_DEVICE_PLATFORM_NAME" : "iphonesimulator"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

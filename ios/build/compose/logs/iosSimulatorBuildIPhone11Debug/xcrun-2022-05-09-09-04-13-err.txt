@@ -1,0 +1,36 @@
+objc[76418]: Class AMSupportURLConnectionDelegate is implemented in both /usr/lib/libauthinstall.dylib (0x1f0f8fb78) and /System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/MobileDevice (0x10e8582c8). One of the two will be used. Which one is undefined.
+objc[76418]: Class AMSupportURLSession is implemented in both /usr/lib/libauthinstall.dylib (0x1f0f8fbc8) and /System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/MobileDevice (0x10e858318). One of the two will be used. Which one is undefined.
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+{ platform:iOS Simulator, id:DB2B6ACD-A999-4B00-BABE-83AB69522A60, OS:15.2, name:device-IPhone8 }
+{ platform:iOS Simulator, id:365DBDDC-BF22-4AD0-AF47-9E8656756372, OS:15.2, name:device-IPhone11 }
+{ platform:iOS Simulator, id:946E9756-2ABB-4862-A72A-91265C0E3CA6, OS:15.2, name:device-iPhone11 }
+{ platform:iOS Simulator, id:E445F920-0572-4DA1-AE60-2425520B67CC, OS:15.2, name:iPad (9th generation) }
+{ platform:iOS Simulator, id:5B2D7D7A-E33D-4C92-9DF0-6EBC67F65DAD, OS:15.2, name:iPad Air (4th generation) }
+{ platform:iOS Simulator, id:39695CEC-87D9-4EE5-A523-EB73484A48EF, OS:15.2, name:iPad Pro (9.7-inch) }
+{ platform:iOS Simulator, id:5F1479A4-F768-4D66-B8D0-F7D5380C1AD7, OS:15.2, name:iPad Pro (11-inch) (3rd generation) }
+{ platform:iOS Simulator, id:86AED8A9-D7A6-482C-AD32-78F504D8F711, OS:15.2, name:iPad Pro (12.9-inch) (5th generation) }
+{ platform:iOS Simulator, id:F1CBC530-0095-4735-B449-CF8D11F85414, OS:15.2, name:iPad mini (6th generation) }
+{ platform:iOS Simulator, id:3D2809D9-C6B1-4BCD-ACDB-6F6CC26347CC, OS:15.2, name:iPhone 8 }
+{ platform:iOS Simulator, id:E51ED448-A570-4994-A4A5-1E9682316160, OS:15.2, name:iPhone 8 Plus }
+{ platform:iOS Simulator, id:5610D41E-E16E-4A37-A72C-9A313CEE15CB, OS:15.2, name:iPhone 11 }
+{ platform:iOS Simulator, id:8D698907-BAA6-4CEC-B0B9-0DB391B3EAE4, OS:15.2, name:iPhone 11 Pro }
+{ platform:iOS Simulator, id:AC4A9C21-3807-43FD-B705-2A8998F038C7, OS:15.2, name:iPhone 11 Pro Max }
+{ platform:iOS Simulator, id:BBEF6263-DE7F-4B0E-9B1E-4B74C58CC17A, OS:15.2, name:iPhone 12 }
+{ platform:iOS Simulator, id:2AD48BD9-1211-4DCE-807C-752464E64CDE, OS:15.2, name:iPhone 12 Pro }
+{ platform:iOS Simulator, id:A7598BFE-237B-4A30-A0D7-203827F309BF, OS:15.2, name:iPhone 12 Pro Max }
+{ platform:iOS Simulator, id:C39F7757-FD2A-495A-AF10-FB782E82B08E, OS:15.2, name:iPhone 12 mini }
+{ platform:iOS Simulator, id:33460CF2-36B3-4E04-9377-1E7A07AA27C8, OS:15.2, name:iPhone 13 }
+{ platform:iOS Simulator, id:4A0B95A4-1775-43C3-AEB4-4FF95F97A50B, OS:15.2, name:iPhone 13 Pro }
+{ platform:iOS Simulator, id:1A15B66C-F6F5-49C7-B5D2-EDA14835FC94, OS:15.2, name:iPhone 13 Pro Max }
+{ platform:iOS Simulator, id:EE20AA76-90F5-4AF4-8E1C-F91963C6827C, OS:15.2, name:iPhone 13 mini }
+{ platform:iOS Simulator, id:E6608B17-C1FF-479C-AB46-867BE7C86161, OS:15.2, name:iPhone SE (2nd generation) }
+{ platform:iOS Simulator, id:4CDA557D-028B-44F9-8EA0-9AC15BAAAD2E, OS:15.2, name:iPod touch (7th generation) }
+{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:00008103-001E21C80231001E }
+{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+** BUILD FAILED **
+
+
+The following build commands failed:
+	PhaseScriptExecution GradleCompile /Users/landrynorris/IdeaProjects/PlatformView/ios/build/ios/IPhone11/PlatformViewExample.xcodeproj/build/Build/Intermediates.noindex/PlatformViewExample.build/Debug-iphonesimulator/PlatformViewExample.build/Script-B3ED9AD20E007D8BB6212CD1.sh (in target 'PlatformViewExample' from project 'PlatformViewExample')
+(1 failure)
