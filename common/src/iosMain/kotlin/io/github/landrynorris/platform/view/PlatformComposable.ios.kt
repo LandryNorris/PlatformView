@@ -1,6 +1,8 @@
 package io.github.landrynorris.platform.view
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -15,7 +17,8 @@ import platform.UIKit.*
 
 @Composable
 fun PlatformViewUI(factory: Factory) {
-
+    val view = remember { factory() }
+    Box(modifier = Modifier.drawView(view))
 }
 
 fun Modifier.drawView(view: PlatformView): Modifier =

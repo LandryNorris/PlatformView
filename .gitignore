@@ -2,4 +2,4 @@ build/
 **/build/
 .gradle/
 local.properties
-.idea
+.idea/
