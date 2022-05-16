@@ -1,16 +1,22 @@
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
+import io.github.landrynorris.platform.view.PlatformViewUI
 import io.github.landrynorris.platform.view.drawView
+import io.github.landrynorris.platform.view.x
+import io.github.landrynorris.platform.view.y
 import kotlinx.cinterop.*
+import platform.CoreGraphics.CGPoint
 import platform.CoreGraphics.CGRectMake
+import platform.CoreGraphics.CGRectZero
+import platform.CoreImage.CIColor.Companion.redColor
 import platform.Foundation.NSStringFromClass
 import platform.UIKit.*
+import platform.UIKit.UIAction.Companion.actionWithHandler
 
 fun main() {
     val args = emptyArray<String>()
@@ -37,17 +43,92 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
 
     override fun application(application: UIApplication, didFinishLaunchingWithOptions: Map<Any?, *>?): Boolean {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
-        val view = UITextView(frame = CGRectMake(0.0, 0.0, 200.0, 200.0))
-        view.text = "UIKit Text"
         window!!.rootViewController = Application("PlatformView Example") {
             Column(modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("Compose Text")
-                Box(modifier = Modifier.drawView(view))
+                PlatformViewUI(factory = {
+                    val view = MyCustomView()
+                    view.text = "UIKit Text"
+                    view.backgroundColor = UIColor.blueColor
+                    view.textColor = UIColor.redColor
+                    view
+                },
+                    update = {
+                        println("Updated")
+                    },
+                    modifier = Modifier.size(200.dp, 30.dp)
+                )
+                Text("Compose Text Under Platform Text")
+                PlatformViewUI(factory = {
+                    val view = UIButton.buttonWithType(UIButtonTypeSystem)
+                    view.setTitle("UIKit Button", UIControlStateNormal)
+                    view.titleLabel?.textColor = UIColor.redColor
+                    view.userInteractionEnabled = true
+                    view.addAction(actionWithHandler {
+                        println("Button pressed")
+                    }, UIControlEventTouchUpInside)
+                    view
+                },
+                    update = {
+                        println("Updated")
+                    },
+                    modifier = Modifier.size(200.dp, 20.dp)
+                )
+
+                PlatformViewUI(factory = {
+                    val view = UIStackView()
+                    view.axis = UILayoutConstraintAxisHorizontal
+                    val textView = UILabel().also { it.text = "UIText" }
+                    val button = UIButton.buttonWithType(UIButtonTypeSystem).also { button ->
+                        button.setTitle("UIButton", UIControlStateNormal)
+                        button.addAction(actionWithHandler {
+                            println("Button was pressed")
+                            button.setTitle("Button that has been pressed", UIControlStateNormal)
+                        }, UIControlEventTouchUpInside)
+                    }
+                    val textView2 = UILabel().also { it.text = "UIText2" }
+                    view.addArrangedSubview(textView)
+                    view.addArrangedSubview(button)
+                    view.addArrangedSubview(textView2)
+                    view.layoutSubviews()
+                    view
+                },
+                    update = {
+                        println("Updated")
+                    },
+                    modifier = Modifier.size(200.dp, 40.dp)
+                )
+
+                Text("Another Compose TextView")
             }
         }
         window!!.makeKeyAndVisible()
         return true
+    }
+}
+
+class MyCustomView: UILabel(CGRectZero.readValue()) {
+
+    override fun touchesBegan(touches: Set<*>, withEvent: UIEvent?) {
+        super.touchesBegan(touches, withEvent)
+        val touch = touches.first() as? UITouch
+        val location = touch?.locationInView(null)
+        println("Coordinates: ${location?.x}, ${location?.y}")
+    }
+
+    override fun touchesMoved(touches: Set<*>, withEvent: UIEvent?) {
+        super.touchesBegan(touches, withEvent)
+        val touch = touches.first() as? UITouch
+        val location = touch?.locationInView(null)
+        println("Coordinates: ${location?.x}, ${location?.y}")
+    }
+
+    override fun touchesEnded(touches: Set<*>, withEvent: UIEvent?) {
+        super.touchesBegan(touches, withEvent)
+        val touch = touches.first() as? UITouch
+        val location = touch?.locationInView(null)
+        println("Coordinates: ${location?.x}, ${location?.y}")
     }
 }
