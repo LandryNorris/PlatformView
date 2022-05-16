@@ -10,20 +10,21 @@ import platform.UIKit.*
 
 fun Modifier.pointerInterop(view: UIView): Modifier {
     val filter = PointerInteropFilter()
-    val targetView = view.subviews.filterIsInstance<UIView>().first()
     filter.touchListener = object: TouchListener {
         override fun touchesBegan(touches: List<UITouch>) {
             println("TouchesBegan called")
-            targetView.touchesBegan(touches.toSet(), null)
-            view.viewToDeliverTo(touches.first().locationInView(view))
+            val targetView = view.viewToDeliverTo(touches.first().locationInView(view))
+            targetView?.touchesBegan(touches.toSet(), null)
             if(targetView is UIControl) targetView.sendActionsForControlEvents(UIControlEventTouchDown)
         }
         override fun touchesMoved(touches: List<UITouch>) {
-            targetView.touchesMoved(touches.toSet(), null)
+            val targetView = view.viewToDeliverTo(touches.first().locationInView(view))
+            targetView?.touchesMoved(touches.toSet(), null)
             if(targetView is UIControl) targetView.sendActionsForControlEvents(UIControlEventTouchDragInside)
         }
         override fun touchesEnded(touches: List<UITouch>) {
-            targetView.touchesEnded(touches.toSet(), null)
+            val targetView = view.viewToDeliverTo(touches.first().locationInView(view))
+            targetView?.touchesEnded(touches.toSet(), null)
             if(targetView is UIControl) targetView.sendActionsForControlEvents(UIControlEventTouchUpInside)
         }
     }
@@ -57,7 +58,6 @@ class PointerInteropFilter: PointerInputModifier {
                 PointerEventType.Press -> {
                     activeTouches.add(uiTouch)
                     touchListener?.touchesBegan(activeTouches)
-                    //UIApplication.sharedApplication.touchesBegan(setOf(uiTouch), null)
                 }
                 PointerEventType.Release -> {
                     touchListener?.touchesEnded(activeTouches)
@@ -84,9 +84,8 @@ private fun PointerEvent.toUITouch(): UITouch? {
     return (nativeEvent as? SkikoTouchEvent)?.platform
 }
 
-fun UIView.viewToDeliverTo(location: CValue<CGPoint>) {
-    val result = hitTest(location, null)
-    println("Found view that was pressed $result")
+fun UIView.viewToDeliverTo(location: CValue<CGPoint>): UIView? {
+    return hitTest(location, null)
 }
 
 /*
