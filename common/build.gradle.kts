@@ -32,7 +32,6 @@ kotlin {
         }
         val main by it.compilations.getting
         val interop by main.cinterops.creating
-        //val uiviewdraw by main.cinterops.creating
     }
     sourceSets {
         val commonMain by getting {
