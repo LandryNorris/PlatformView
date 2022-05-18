@@ -12,7 +12,6 @@ fun Modifier.pointerInterop(view: UIView): Modifier {
     val filter = PointerInteropFilter()
     filter.touchListener = object: TouchListener {
         override fun touchesBegan(touches: List<UITouch>) {
-            println("TouchesBegan called")
             val targetView = view.viewToDeliverTo(touches.first().locationInView(view))
             targetView?.touchesBegan(touches.toSet(), null)
             if(targetView is UIControl) targetView.sendActionsForControlEvents(UIControlEventTouchDown)

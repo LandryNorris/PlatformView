@@ -5,10 +5,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
-import io.github.landrynorris.platform.view.PlatformViewUI
-import io.github.landrynorris.platform.view.drawView
-import io.github.landrynorris.platform.view.x
-import io.github.landrynorris.platform.view.y
+import io.github.landrynorris.platform.view.*
 import kotlinx.cinterop.*
 import platform.CoreGraphics.CGPoint
 import platform.CoreGraphics.CGRectMake
@@ -86,6 +83,7 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
                         button.addAction(actionWithHandler {
                             println("Button was pressed")
                             button.setTitle("Button that has been pressed", UIControlStateNormal)
+                            invalidationCount.value++
                         }, UIControlEventTouchUpInside)
                     }
                     val textView2 = UILabel().also { it.text = "UIText2" }

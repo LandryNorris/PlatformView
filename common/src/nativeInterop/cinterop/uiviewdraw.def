@@ -1,0 +1,5 @@
+package = custom.uiview
+
+headers = UIViewWithDrawRect.h
+compilerOpts = -I../framework/UIViewWithdrawRect.framework/Headers
+linkerOpts.ios = -framework Foundation -F../framework/UIViewWithdrawRect.framework -framework UIViewWithDrawRect

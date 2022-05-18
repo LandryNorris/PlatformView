@@ -2,6 +2,7 @@ package io.github.landrynorris.platform.view
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -11,12 +12,16 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.round
+import interop.UIViewWithOverridesProtocol
 import kotlinx.cinterop.*
 import org.jetbrains.skia.Bitmap
 import platform.CoreFoundation.CFDataGetBytePtr
 import platform.CoreFoundation.CFDataGetLength
 import platform.CoreGraphics.*
+import platform.QuartzCore.CALayer
 import platform.UIKit.*
+
+var invalidationCount = mutableStateOf(0)
 
 @Composable
 fun PlatformViewUI(factory: Factory, modifier: Modifier = Modifier, update: () -> Unit = {}) {
@@ -42,19 +47,33 @@ fun PlatformViewUI(factory: Factory, modifier: Modifier = Modifier, update: () -
 }
 
 fun createViewHolder(factory: Factory): UIView {
-    val result = UIView()
+    val result = object: UIView(CGRectZero.readValue()), UIViewWithOverridesProtocol {
+        override fun drawRect(aRect: CValue<CGRect>) {
+            if(!isDrawing) invalidationCount.value++
+            println("Drawing Rect")
+        }
+
+        override fun layoutSubviews() {
+            println("Laying out subview")
+        }
+    }
     val subview = factory()
     result.userInteractionEnabled = true
     result.addSubview(subview)
     return result
 }
 
+private var isDrawing = false
+
 fun Modifier.drawView(view: PlatformView): Modifier =
     drawBehind {
         drawIntoCanvas { canvas ->
+            isDrawing = true
+            invalidationCount.value //read the variable, so we can recompose when this value changes.
             val bitmap = ImageBitmap(view.width().toInt(), view.height().toInt())
             view.toUIImage().render(bitmap.asSkiaBitmap())
             canvas.drawImage(bitmap, Offset.Zero, Paint())
+            isDrawing = false
         }
     }
 

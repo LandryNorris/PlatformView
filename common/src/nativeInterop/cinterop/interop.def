@@ -1,0 +1,11 @@
+package = interop
+language = Objective-C
+---
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+@protocol UIViewWithOverrides
+- (void) drawRect:(CGRect)aRect;
+- (void) layoutSubviews;
+@end
