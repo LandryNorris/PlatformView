@@ -50,16 +50,35 @@ fun createViewHolder(factory: Factory): UIView {
     val result = object: UIView(CGRectZero.readValue()), UIViewWithOverridesProtocol {
         override fun drawRect(aRect: CValue<CGRect>) {
             if(!isDrawing) invalidationCount.value++
-            println("Drawing Rect")
+            println("Drawing Rect $isDrawing")
         }
 
         override fun layoutSubviews() {
             println("Laying out subview")
         }
+
+        override fun setNeedsDisplay() {
+            invalidationCount.value++
+            println("SetNeedsDisplay called")
+        }
+
+        override fun setNeedsLayout() {
+            invalidationCount.value++
+            println("SetNeedsLayout called")
+        }
+
+        override fun setNeedsDisplayInRect(rect: CValue<CGRect>) {
+            println("SetNeedsDisplayInRect called")
+        }
+
+        override fun displayIfNeeded() {
+            println("DisplayIfNeeded called")
+        }
     }
     val subview = factory()
     result.userInteractionEnabled = true
     result.addSubview(subview)
+    result.contentMode = UIViewContentMode.UIViewContentModeRedraw
     return result
 }
 
@@ -68,12 +87,10 @@ private var isDrawing = false
 fun Modifier.drawView(view: PlatformView): Modifier =
     drawBehind {
         drawIntoCanvas { canvas ->
-            isDrawing = true
             invalidationCount.value //read the variable, so we can recompose when this value changes.
             val bitmap = ImageBitmap(view.width().toInt(), view.height().toInt())
             view.toUIImage().render(bitmap.asSkiaBitmap())
             canvas.drawImage(bitmap, Offset.Zero, Paint())
-            isDrawing = false
         }
     }
 
@@ -82,7 +99,9 @@ fun PlatformView.height() = bounds.useContents { size.height }
 
 fun PlatformView.toUIImage(): UIImage {
     UIGraphicsBeginImageContext(CGSizeMake(width(), height()))
+    isDrawing = true
     drawViewHierarchyInRect(CGRectMake(0.0, 0.0, width(), height()), true)
+    isDrawing = false
     val image = UIGraphicsGetImageFromCurrentImageContext() ?: error("Unable to get image")
     UIGraphicsEndImageContext()
     return image
@@ -94,6 +113,6 @@ fun UIImage.render(bitmap: Bitmap) {
     //val bytes = imageData?.readBytes(size.useContents { width }.toInt() * size.useContents { height }.toInt())
     val raw = CFDataGetBytePtr(imageData)
     val size = CFDataGetLength(imageData).toInt()
-    val pixels = ByteArray(size) { index -> raw?.get(index)?.toByte() ?: 0 }
+    val pixels = raw?.readBytes(size)
     bitmap.installPixels(pixels)
 }

@@ -15,16 +15,19 @@ fun Modifier.pointerInterop(view: UIView): Modifier {
             val targetView = view.viewToDeliverTo(touches.first().locationInView(view))
             targetView?.touchesBegan(touches.toSet(), null)
             if(targetView is UIControl) targetView.sendActionsForControlEvents(UIControlEventTouchDown)
+            targetView?.superview?.setNeedsDisplay()
         }
         override fun touchesMoved(touches: List<UITouch>) {
             val targetView = view.viewToDeliverTo(touches.first().locationInView(view))
             targetView?.touchesMoved(touches.toSet(), null)
             if(targetView is UIControl) targetView.sendActionsForControlEvents(UIControlEventTouchDragInside)
+            targetView?.superview?.setNeedsDisplay()
         }
         override fun touchesEnded(touches: List<UITouch>) {
             val targetView = view.viewToDeliverTo(touches.first().locationInView(view))
             targetView?.touchesEnded(touches.toSet(), null)
             if(targetView is UIControl) targetView.sendActionsForControlEvents(UIControlEventTouchUpInside)
+            targetView?.superview?.setNeedsDisplay()
         }
     }
     return this.then(filter)

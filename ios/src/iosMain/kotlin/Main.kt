@@ -83,7 +83,6 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
                         button.addAction(actionWithHandler {
                             println("Button was pressed")
                             button.setTitle("Button that has been pressed", UIControlStateNormal)
-                            invalidationCount.value++
                         }, UIControlEventTouchUpInside)
                     }
                     val textView2 = UILabel().also { it.text = "UIText2" }

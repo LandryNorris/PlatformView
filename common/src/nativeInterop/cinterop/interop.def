@@ -8,4 +8,8 @@ language = Objective-C
 @protocol UIViewWithOverrides
 - (void) drawRect:(CGRect)aRect;
 - (void) layoutSubviews;
+- (void) setNeedsDisplay;
+- (void) setNeedsLayout;
+- (void) setNeedsDisplayInRect:(CGRect)rect;
+- (void) displayIfNeeded;
 @end
