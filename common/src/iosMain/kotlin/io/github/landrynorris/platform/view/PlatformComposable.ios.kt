@@ -20,6 +20,7 @@ import platform.CoreFoundation.CFDataGetLength
 import platform.CoreGraphics.*
 import platform.QuartzCore.CALayer
 import platform.UIKit.*
+import kotlin.system.measureTimeMicros
 
 var invalidationCount = mutableStateOf(0)
 
@@ -75,6 +76,7 @@ fun createViewHolder(factory: Factory): UIView {
             println("DisplayIfNeeded called")
         }
     }
+
     val subview = factory()
     result.userInteractionEnabled = true
     result.addSubview(subview)
@@ -84,15 +86,27 @@ fun createViewHolder(factory: Factory): UIView {
 
 private var isDrawing = false
 
-fun Modifier.drawView(view: PlatformView): Modifier =
-    drawBehind {
+@Composable
+fun Modifier.drawView(view: PlatformView): Modifier {
+
+    return drawBehind {
         drawIntoCanvas { canvas ->
+            val w = view.width().toInt()
+            val h = view.height().toInt()
+            val bitmap = ImageBitmap(w, h)
             invalidationCount.value //read the variable, so we can recompose when this value changes.
-            val bitmap = ImageBitmap(view.width().toInt(), view.height().toInt())
-            view.toUIImage().render(bitmap.asSkiaBitmap())
+            lateinit var image: UIImage
+            val createImageTime = measureTimeMicros {
+                image = view.toUIImage()
+            }
+            val renderTime = measureTimeMicros {
+                image.render(bitmap.asSkiaBitmap())
+            }
+            println("Creating image took $createImageTime us. Rendering to bitmap took $renderTime us")
             canvas.drawImage(bitmap, Offset.Zero, Paint())
         }
     }
+}
 
 fun PlatformView.width() = bounds.useContents { size.width }
 fun PlatformView.height() = bounds.useContents { size.height }

@@ -54,7 +54,7 @@ kotlin {
 compose.experimental {
     web.application {}
     uikit.application {
-        bundleIdPrefix = "io.github.landry"
+        bundleIdPrefix = "io.github.landrynorris"
         projectName = "PlatformViewExample"
         deployConfigurations {
             simulator("IPhone11") {
